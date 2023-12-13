@@ -1,15 +1,70 @@
 import React, { useState, useContext } from 'react';
+import styled from 'styled-components';
 import Layout from '../../layouts/PagesLayout';
 import { loginSchema } from '../../config/LoginSchema';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
+
+const StyledMain = styled.main`
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 300px;
+	margin: 0 auto;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 5px;
+
+	h2 {
+		color: #333;
+		font-size: 2.5rem;
+		margin-bottom: 20px;
+	}
+
+	input {
+		width: 100%;
+		margin: 8px 0;
+		padding: 10px;
+		box-sizing: border-box;
+		border: 1px solid #ccc;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+
+	.error {
+		color: red;
+		margin: 8px 0;
+	}
+
+	button {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px;
+		width: 100%;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+
+		&:hover {
+			background-color: #0056b3;
+		}
+	}
+`;
 
 export function FormLogin(): React.FunctionComponentElement<JSX.Element> {
 	const [username, setUsername] = useState('ariel');
 	const [password, setPassword] = useState('12345678');
 	const [loginError, setLoginError] = useState('');
 	const { apiUrl, token, setToken } = useContext(AuthContext);
-	console.log(token);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -23,6 +78,7 @@ export function FormLogin(): React.FunctionComponentElement<JSX.Element> {
 		} catch (error) {
 			setLoginError('Invalid credentials');
 		}
+
 		try {
 			const response = await fetch(`${apiUrl}/login`, {
 				method: 'POST',
@@ -45,15 +101,15 @@ export function FormLogin(): React.FunctionComponentElement<JSX.Element> {
 
 	return (
 		<Layout title='Login Form'>
-			<main>
-				<h2>Login</h2>
-				<form onSubmit={handleSubmit}>
+			<StyledMain>
+				<StyledForm onSubmit={handleSubmit}>
+					<h2>Login</h2>
 					<input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
 					<input type='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
 					{loginError && <div className='error'>{loginError}</div>}
 					<button type='submit'>Login</button>
-				</form>
-			</main>
+				</StyledForm>
+			</StyledMain>
 		</Layout>
 	);
 }

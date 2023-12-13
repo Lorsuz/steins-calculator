@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/AqUTNCx.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steins;Calculator</title>
+    <link rel="stylesheet" href="Mdc.css" />
+    <link rel="stylesheet" href="../index.css">
+    <script src="Mdc.js" defer></script>
+    </style>
+</head>
+
+<body onload="getHistory()">
+
+    <div id="border">
+        <h1 id="title">Steins;Calculator</h1>
+    </div>
+    <br>
+    <br>
+
+    <div class="menu">
+        <div id="proix">
+            <a class="button" href="../index.html" role="button">HOME</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../Pa e Pg/Pg.html" role="button"> P.G</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../Pa e Pg/Pa.html" role="button">P.A</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../Mdc e Mmc/MMC.html" role="button">M.M.C</a>
+        </div>
+    </div>
+
+
+    <div id="box">
+        <div class="container">
+
+            <h1>Máximo Divisor Comum</h1>
+            <label for="num1">Digite o primeiro número:</label>
+            <input type="number" id="num1"><br>
+            <label for="num2">Digite o segundo número:</label>
+            <input type="number" id="num2"><br>
+            <button onclick="calculate()">Calcular</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <div class="h-box">
+        <h2>Histórico</h2>
+        <div id="historico"></div>
+    </div>
+
+
+    <br>
+</body>
+
+</html>

@@ -1,39 +1,23 @@
 import { Router, Request, Response } from 'express';
-
 import bcrypt from 'bcrypt';
-
 import jwt from 'jsonwebtoken';
-
 import { registerSchema, loginSchema } from '../middleware/validationSchemas.js';
-
 import dotenv from 'dotenv';
-
 import SendMail from '../services/sendMail.js';
-
 import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
 dotenv.config();
-
 const router: Router = Router();
 
-/* async function comparePassword(password: string, hashedPasswordFromDatabase: string): Promise<boolean> {
-	const value = await bcrypt.compare(password, hashedPasswordFromDatabase);
-
-	return value;
-} */
-
 function generateToken(userId: number): string {
-	const SECRET_KEY = process.env.JWT_SECRET || 'defaultSecretKey';
-
+	const SECRET_KEY: string = process.env.JWT_SECRET || 'defaultSecretKey';
 	return jwt.sign({ userId }, SECRET_KEY);
 }
 
 router.get('/api/users', async (req: Request, res: Response) => {
 	try {
 		const users = await prisma.user.findMany();
-
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ error: 'An unexpected error occurred', message: 'Error fetching users' });
@@ -44,17 +28,11 @@ router.post('/api/register', async (req: Request, res: Response) => {
 	try {
 		type User = {
 			username: string;
-
 			email: string;
-
 			password: string;
 		};
 
-		// Validar e extrair dados da solicitação
-
 		const { username, email, password }: User = registerSchema.parse(req.body);
-
-		// Verificar se usuário ou email já existem
 
 		const existingUser = await prisma.user.findFirst({
 			where: {
@@ -66,18 +44,12 @@ router.post('/api/register', async (req: Request, res: Response) => {
 			return res.status(400).json({ message: 'Username or email already exists' });
 		}
 
-		// Hash de senha seguro
-
 		const passwordHashed: string = await bcrypt.hash(password, 12);
-
-		// Criar novo usuário
 
 		const newUser = await prisma.user.create({
 			data: {
 				username,
-
 				email,
-
 				password: passwordHashed
 			}
 		});
@@ -101,7 +73,6 @@ router.post('/api/register', async (req: Request, res: Response) => {
 router.post('/api/login', async (req: Request, res: Response) => {
 	try {
 		const { username, password } = loginSchema.parse(req.body);
-
 		const user = await prisma.user.findFirst({
 			where: {
 				username
@@ -110,13 +81,11 @@ router.post('/api/login', async (req: Request, res: Response) => {
 
 		if (!user) {
 			res.status(401).json({ message: 'User not found' });
-
 			return;
 		}
 
 		if (!user.password) {
 			res.status(401).json({ message: 'User has no password' });
-
 			return;
 		}
 
@@ -124,12 +93,10 @@ router.post('/api/login', async (req: Request, res: Response) => {
 
 		if (!compareHash) {
 			res.status(401).json({ message: 'Invalid password' });
-
 			return;
 		}
 
 		const token = generateToken(user.id);
-
 		res.json({ message: 'Login successful', token });
 	} catch (error) {
 		console.error('Error during login:', error);

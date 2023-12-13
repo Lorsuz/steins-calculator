@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" type="image/png" href="https://i.imgur.com/AqUTNCx.png"/>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steins;Calculator</title>
+	
+	</head>
+	<style>
+		body {
+			background-color: #0D1B2A;
+			color: white;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.container {
+			display: inline-block;
+			margin: 50px;
+			padding: 20px;
+			border: 2px solid #E42121;
+			border-radius: 10px;
+			background-color: #E42121;
+			text-align: left;
+		}
+		input {
+			padding: 5px;
+			margin: 10px;
+			border-radius: 5px;
+			border: none;
+			background-color: #0D1B2A;
+			color: #E42121;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			text-align: center;
+		}
+		button {
+			padding: 10px;
+			margin: 10px;
+			border-radius: 5px;
+			border: none;
+			background-color:#E42121;
+			color: white;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			cursor: pointer;
+			text-shadow: 1.5px 1.5px 1px black;
+		}
+		.result {
+			margin-top: 20px;
+			font-size: 24px;
+			font-weight: bold;
+			color: white;
+		}
+		.container-wrapper {
+			border: 2px solid #E42121;
+			border-radius: 10px;
+			background-color: #E42121;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 500px;
+		}
+		button:hover {
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.19),
+        0 1.5px 1.5px rgba(0, 0, 0, 0.23);
+}
+
+	</style>
+</head>
+<body>
+	<div class="menu">
+		<div class="btn-group" role="group" aria-label="example">
+			<a href="../index.html"><button type="button" class="btn btn-danger">HOME</button></a>
+			<a href="../Pa e Pg/Pg.html"><button type="button" class="btn btn-danger">P.G</button></a>
+			<a href="../Mdc e Mmc/Mdc.html"><button type="button" class="btn btn-warning">M.D.C</button></a>
+			<a href="../Pa e Pg/Pa.html"><button type="button" class="btn btn-success">P.A</button></a>
+		  </div>
+		</div>
+	<div class="container-wrapper">
+		<h1>Mínimo Múltiplo Comum</h1>
+		<div class="container">
+			<label for="num1">Digite o primeiro número:</label>
+			<input type="number" id="num1"><br>
+			<label for="num2">Digite o segundo número:</label>
+			<input type="number" id="num2"><br>
+			<button onclick="calculate()">Calcular</button>
+			<div class="result" id="result"></div>
+		</div>
+	</div>
+	<div class="h-box">
+        <h2>Histórico</h2>
+        <div id="historico"></div>
+    </div>
+
+</body>
+
+<script>
+	function calculate() {
+		var num1 = parseInt(document.getElementById("num1").value);
+		var num2 = parseInt(document.getElementById("num2").value);
+		var mmc = getMMC(num1, num2);
+		document.getElementById("result").innerHTML = "O MMC de " + num1 + " e " + num2 + " é " + mmc + ".";
+	}
+
+	function getMMC(a, b) {
+		var mdc = getMDC(a, b);
+		return (a * b) / mdc;
+	}
+
+	function getMDC(a, b) {
+		if (b == 0) {
+			return a;
+		} else {
+			return getMDC(b, a % b);
+		}
+	}
+</script>

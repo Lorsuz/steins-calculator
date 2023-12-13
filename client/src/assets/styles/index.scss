@@ -70,7 +70,7 @@ body {
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: var(--color-primary);
+		background: #000;
 		border-radius: 10px;
 	}
 }
@@ -78,13 +78,11 @@ body {
 main {
 	width: 100%;
 	overflow: hidden;
-
-	> section {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-	}
+	min-height: 87vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .wrapper {

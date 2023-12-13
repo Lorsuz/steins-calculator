@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const ImageViewer = ({ imageUrl }) => (
-	<div>
-		<p>Imagem carregada com sucesso!</p>
-		<img src={imageUrl} alt='Imagem carregada' style={{ maxWidth: '100%' }} />
-	</div>
-);
+import styled from 'styled-components';
+import { FaImages } from 'react-icons/fa6';
 
 const ImageUpload = () => {
 	const [file, setFile] = useState(null);
-	const [profile, setProfile] = useState('default.jpg');
-	const [background, setBackground] = useState('default.jpg');
-	const [imageUrl, setImageUrl] = useState('');
+	const [profile, setProfile] = useState('http://localhost:3001/uploads/profile/default.jpg');
+	const [background, setBackground] = useState('http://localhost:3001/uploads/background/default.jpg');
 
 	const handleFileChange = e => {
 		setFile(e.target.files[0]);
@@ -29,9 +23,7 @@ const ImageUpload = () => {
 				}
 			});
 
-			// Se a resposta contiver a URL da imagem, atualize o estado
 			if (response.data && response.data.imageUrl) {
-				setImageUrl(response.data.imageUrl);
 				if (useAs === 'profile') {
 					setProfile(response.data.imageUrl);
 				} else {
@@ -39,26 +31,107 @@ const ImageUpload = () => {
 				}
 			}
 
-			console.log('Upload bem-sucedido!');
+			console.log('Upload successful!');
 		} catch (error) {
-			console.error('Erro ao fazer upload:', error);
+			console.error('Error uploading:', error);
 		}
 	};
 
 	return (
-		<div>
+		<StyledComponent>
 			<h1>Profile</h1>
 			<div className='images'>
-				<img src={`http://localhost:3001/uploads/background/${background}`} alt='' className='background' />
-				<img src={`http://localhost:3001/uploads/profile/${profile}`} alt='' className='profile' />
+				<img src={background} alt='' className='background' />
+				<img src={profile} alt='' className='profile' />
 			</div>
-			<input type='file' onChange={handleFileChange} />
-			<button onClick={() => handleUpload('profile')}>Usar como Perfil</button>
-			<button onClick={() => handleUpload('background')}>Usar como Background</button>
-
-			{imageUrl && <ImageViewer imageUrl={imageUrl} />}
-		</div>
+			<input type='file' onChange={handleFileChange} id='input' />
+			<label htmlFor='input'>
+				<FaImages></FaImages>{' '}
+			</label>
+			<div className='actions'>
+				<Button onClick={() => handleUpload('profile')}>Use as Profile</Button>
+				<Button onClick={() => handleUpload('background')}>Use as Background</Button>
+			</div>
+		</StyledComponent>
 	);
 };
+
+const StyledComponent = styled.main`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+	h1 {
+		margin-bottom: 20px;
+		color: #333;
+		font-size: 2.5rem;
+	}
+
+	.images {
+		position: relative;
+		height: 400px;
+		overflow: hidden;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		margin-bottom: 20px;
+		border-radius: 10px;
+		width: 90%;
+
+		.background {
+			width: 100%;
+			/* height: 100%; */
+			margin-bottom: 20px;
+		}
+
+		.profile {
+			width: 200px;
+			border-radius: 50%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	label {
+		margin: 20px 0;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		border-radius: 50%;
+		padding: 20px;
+		cursor: pointer;
+
+		* {
+			vertical-align: middle;
+			color: #007bff;
+			font-size: 2rem;
+		}
+	}
+	input {
+		display: none;
+		margin-bottom: 20px;
+		&:focus ~ label,
+		&:checked ~ label {
+			border: 2px solid #007bff;
+		}
+	}
+	.actions {
+		display: flex;
+		justify-content: center;
+	}
+`;
+
+const Button = styled.button`
+	background-color: #007bff;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin: 5px;
+	font-size: 16px;
+
+	&:hover {
+		background-color: #0056b3;
+	}
+`;
 
 export default ImageUpload;

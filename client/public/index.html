@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/AqUTNCx.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steins;Calculator</title>
+    <link rel="stylesheet" href="index.css" />
+
+</head>
+
+<body onload="getHistory()">
+    <div id="border">
+        <h1 id="title">Steins;Calculator</h1>
+    </div>
+    <br>
+    <br>
+
+    <div class="menu">
+        <div id="proix">
+            <a class="button" href="../public/Pa e Pg/Pa.html" role="button">P.A</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../public/Pa e Pg/Pg.html" role="button"> P.G</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../public/Mdc e Mmc/Mdc.html" role="button">M.D.C</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../public/Mdc e Mmc/MMC.html" role="button">M.M.C</a>
+        </div>
+    </div>
+
+    <div id="box">
+        <div id="calculator">
+            <input type="text" id="display" disabled />
+            <br />
+            <button id="ac" class="operator">AC</button>
+            <button id="de" class="operator">DE</button>
+            <button id="." class="operator">.</button>
+            <button id="/" class="operator">/</button>
+            <br />
+            <button id="7">7</button>
+            <button id="8">8</button>
+            <button id="9">9</button>
+            <button id="*" class="operator">*</button>
+            <br />
+            <button id="4">4</button>
+            <button id="5">5</button>
+            <button id="6">6</button>
+            <button id="-" class="operator">-</button>
+            <br />
+            <button id="1">1</button>
+            <button id="2">2</button>
+            <button id="3">3</button>
+            <button id="+" class="operator">+</button>
+            <br />
+
+
+            <button id="0">0</button>
+            <button id="=" class="equal operator">=</button>
+            <br />
+        </div>
+    </div>
+    
+    <div class="h-box">
+        <h2>Histórico</h2>
+        <div id="historico"></div>
+    </div>
+
+    <script src="index.js" defer></script>
+</body>
+
+</html>

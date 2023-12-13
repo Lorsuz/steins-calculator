@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/AqUTNCx.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Steins;Calculator</title>
+    <link rel="stylesheet" href="Pa.css" />
+    <link rel="stylesheet" href="../index.css">
+    <script src="Pg.js" defer></script>
+
+</head>
+
+<body onload="getHistory()">
+    <div id="border">
+        <h1 id="title">Steins;Calculator</h1>
+    </div>
+    <br>
+    <br>
+
+    <div class="menu">
+        <div id="proix">
+            <a class="button" href="../index.html" role="button">HOME</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../Pa e Pg/Pa.html" role="button"> P.A</a>
+        </div>
+
+        <div id="proix">
+            <a class="button" href="../Mdc e Mmc/Mdc.html" role="button">M.D.C</a>
+        </div>
+        <div id="proix">
+            <a class="button" href="../Mdc e Mmc/Mmc.html" role="button">M.M.C</a>
+        </div>
+    </div>
+
+
+    <div id="box">
+        <div class="container">
+            <h1>Progressão Geométrica</h1>
+            <label for="first-term">Digite o primeiro termo:</label>
+            <input type="number" id="first-term"><br>
+            <label for="common-ratio">Digite a diferença comum:</label>
+            <input type="number" id="common-ratio"><br>
+            <label for="term-index">Digite a posição do termo:</label>
+            <input type="number" id="term-index"><br>
+            <button onclick="calculate()">Calcular</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <div class="h-box">
+        <h2>Histórico</h2>
+        <div id="historico"></div>
+    </div>
+</body>
+
+</html>

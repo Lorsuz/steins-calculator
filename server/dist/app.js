@@ -64,15 +64,13 @@ app.use('/', express.static(path.join(__dirname, uploadDirectoryBackground)));
 const uploadDirector = path.join(__dirname, '../uploads');
 app.use('/uploads/profile/:filename', (req, res) => {
     const { filename } = req.params;
-    console.log(filename);
     const filePath = path.join(uploadDirector, 'profile', filename);
     // Verifica se o arquivo existe antes de enviá-lo
-    res.sendFile(filePath);
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
     }
     else {
-        // res.status(404).send('Arquivo não encontrado');
+        res.sendFile(filePath);
     }
 });
 app.use('/uploads/background/:filename', (req, res) => {

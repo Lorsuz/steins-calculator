@@ -17,11 +17,6 @@ import { Prisma, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 dotenv.config();
 const router = Router();
-/* async function comparePassword(password: string, hashedPasswordFromDatabase: string): Promise<boolean> {
-    const value = await bcrypt.compare(password, hashedPasswordFromDatabase);
-
-    return value;
-} */
 function generateToken(userId) {
     const SECRET_KEY = process.env.JWT_SECRET || 'defaultSecretKey';
     return jwt.sign({ userId }, SECRET_KEY);
@@ -37,9 +32,7 @@ router.get('/api/users', (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 router.post('/api/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Validar e extrair dados da solicitação
         const { username, email, password } = registerSchema.parse(req.body);
-        // Verificar se usuário ou email já existem
         const existingUser = yield prisma.user.findFirst({
             where: {
                 OR: [{ username }, { email }]
@@ -48,9 +41,7 @@ router.post('/api/register', (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (existingUser) {
             return res.status(400).json({ message: 'Username or email already exists' });
         }
-        // Hash de senha seguro
         const passwordHashed = yield bcrypt.hash(password, 12);
-        // Criar novo usuário
         const newUser = yield prisma.user.create({
             data: {
                 username,

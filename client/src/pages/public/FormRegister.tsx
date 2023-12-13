@@ -1,13 +1,65 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import styled from 'styled-components';
 import Layout from '../../layouts/PagesLayout';
 import { registerSchema } from '../../config/registerSchema';
 import AuthContext from '../../context/AuthContext';
 
-function FormRegister(): React.FunctionComponentElement<JSX.Element> {
+const Main = styled.main`
+	
+
+`;
+const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 300px;
+	margin: 0 auto;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+	border-radius: 5px;
+
+	h2 {
+		color: #333;
+		font-size: 2.5rem;
+		margin-bottom: 50px;
+	}
+
+	input {
+		width: 100%;
+		margin: 8px 0;
+		padding: 10px;
+		box-sizing: border-box;
+		border: 1px solid #ccc;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+
+	.error {
+		color: red;
+		margin: 8px 0;
+	}
+
+	button {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px;
+		width: 100%;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+
+		&:hover {
+			background-color: #0056b3;
+		}
+	}
+`;
+
+const FormRegister: React.FunctionComponentElement<JSX.Element> = () => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
 	const [registerError, setRegisterError] = useState('');
 	const { apiUrl } = useContext(AuthContext);
 
@@ -43,15 +95,18 @@ function FormRegister(): React.FunctionComponentElement<JSX.Element> {
 
 	return (
 		<Layout title='Register Form'>
-			<h2>Register</h2>
-			<form onSubmit={handleSubmit}>
-				<input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
-				<input type='email' placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} />
-				<input type='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
-				{registerError && <div className='error'>{registerError}</div>}
-				<button type='submit'>Register</button>
-			</form>
+			<Main>
+				<StyledForm onSubmit={handleSubmit}>
+					<h2>Register</h2>
+					<input type='text' placeholder='Username' value={username} onChange={e => setUsername(e.target.value)} />
+					<input type='email' placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} />
+					<input type='password' placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
+					{registerError && <div className='error'>{registerError}</div>}
+					<button type='submit'>Register</button>
+				</StyledForm>
+			</Main>
 		</Layout>
 	);
-}
+};
+
 export default FormRegister;

@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
+	background-color: #232323;
+	padding: 20px;
 	text-align: center;
-	padding: 50px 20px;
-	background-color: #004080; /* Cor de fundo azul do IFPB */
-	color: #ffffff; /* Cor do texto branco */
+	bottom: 0;
+	width: 100%;
+	span{
+		font-size: 1.3rem;
+		color: #fff; 
 
-	hr {
-		border: 1px solid #ffffff; /* Cor da linha branca */
-		margin-bottom: 20px;
-	}
+}
 `;
 
 const Footer = (): React.FunctionComponentElement<JSX.Element> => (
 	<StyledFooter>
-		<hr />
 		<span>I'm here to stay (Footer)</span>
 	</StyledFooter>
 );
