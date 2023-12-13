@@ -10,6 +10,8 @@ const ImageViewer = ({ imageUrl }) => (
 
 const ImageUpload = () => {
 	const [file, setFile] = useState(null);
+	const [profile, setProfile] = useState('default.jpg');
+	const [background, setBackground] = useState('default.jpg');
 	const [imageUrl, setImageUrl] = useState('');
 
 	const handleFileChange = e => {
@@ -30,6 +32,11 @@ const ImageUpload = () => {
 			// Se a resposta contiver a URL da imagem, atualize o estado
 			if (response.data && response.data.imageUrl) {
 				setImageUrl(response.data.imageUrl);
+				if (useAs === 'profile') {
+					setProfile(response.data.imageUrl);
+				} else {
+					setBackground(response.data.imageUrl);
+				}
 			}
 
 			console.log('Upload bem-sucedido!');
@@ -40,6 +47,11 @@ const ImageUpload = () => {
 
 	return (
 		<div>
+			<h1>Profile</h1>
+			<div className='images'>
+				<img src={`http://localhost:3001/uploads/background/${background}`} alt='' className='background' />
+				<img src={`http://localhost:3001/uploads/profile/${profile}`} alt='' className='profile' />
+			</div>
 			<input type='file' onChange={handleFileChange} />
 			<button onClick={() => handleUpload('profile')}>Usar como Perfil</button>
 			<button onClick={() => handleUpload('background')}>Usar como Background</button>

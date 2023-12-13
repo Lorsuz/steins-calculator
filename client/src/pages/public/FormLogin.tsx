@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 
 export function FormLogin(): React.FunctionComponentElement<JSX.Element> {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const [username, setUsername] = useState('ariel');
+	const [password, setPassword] = useState('12345678');
 	const [loginError, setLoginError] = useState('');
 	const { apiUrl, token, setToken } = useContext(AuthContext);
 	console.log(token);
