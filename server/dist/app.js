@@ -70,7 +70,7 @@ app.use('/uploads/profile/:filename', (req, res) => {
         res.sendFile(filePath);
     }
     else {
-        res.sendFile(filePath);
+        res.status(404).send('Arquivo não encontrado');
     }
 });
 app.use('/uploads/background/:filename', (req, res) => {

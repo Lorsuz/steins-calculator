@@ -16,7 +16,7 @@ const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 300px;
+	width: 500px;
 	margin: 0 auto;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 20px;
@@ -61,10 +61,10 @@ const StyledForm = styled.form`
 `;
 
 export function FormLogin(): React.FunctionComponentElement<JSX.Element> {
-	const [username, setUsername] = useState('ariel');
-	const [password, setPassword] = useState('12345678');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 	const [loginError, setLoginError] = useState('');
-	const { apiUrl, token, setToken } = useContext(AuthContext);
+	const { apiUrl, setToken } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {

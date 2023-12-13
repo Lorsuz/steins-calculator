@@ -45,8 +45,8 @@ const HomePage: React.FunctionComponent = () => (
 			<p>Conheça mais sobre nossa escola e explore nossa calculadora especial.</p>
 
 			<section>
-				<h2>Calculadora IFPB</h2>
-				<p>
+					<h2>Calculadora IFPB</h2>
+					<p>
 					Bem-vindo à calculadora do IFPB! Esta calculadora incrível foi desenvolvida pelos talentosos estudantes do
 					IFPB para ajudar em seus cálculos diários. Experimente agora mesmo e simplifique sua vida acadêmica.
 				</p>

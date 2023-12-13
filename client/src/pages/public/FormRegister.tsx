@@ -12,7 +12,7 @@ const StyledForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 300px;
+	width: 500px;
 	margin: 0 auto;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	padding: 20px;
@@ -56,7 +56,7 @@ const StyledForm = styled.form`
 	}
 `;
 
-const FormRegister: React.FunctionComponentElement<JSX.Element> = () => {
+const FormRegister = (): React.FunctionComponentElement<JSX.Element> => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

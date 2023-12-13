@@ -71,6 +71,7 @@ const uploadBackground = multer({ storage: storageBackground });
 app.post('/upload-background', uploadBackground.single('image'), (req: Request, res) => {
 	// Lógica para lidar com a imagem enviada
 	const imageUrl = `http://localhost:3001/${uploadDirectoryBackground}${req.file.filename}`;
+
 	res.json({ imageUrl });
 });
 
@@ -91,7 +92,7 @@ app.use('/uploads/profile/:filename', (req, res) => {
 	if (fs.existsSync(filePath)) {
 		res.sendFile(filePath);
 	} else {
-		res.sendFile(filePath);
+		res.status(404).send('Arquivo não encontrado');
 	}
 });
 
