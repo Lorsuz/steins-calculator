@@ -12,5 +12,7 @@ model User {
   username String  @unique
   email String  @unique
   password  String
+  profile  String @default("default.png")
+  background  String @default("default.jpg")
 }
 

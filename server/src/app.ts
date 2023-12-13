@@ -29,35 +29,77 @@ app.use('/', authRouter);
 
 /* ============================================== */
 
-const uploadDirectory = 'uploads/';
-if (!fs.existsSync(uploadDirectory)) {
-	fs.mkdirSync(uploadDirectory);
+const uploadDirectoryProfile = 'uploads/profile/';
+
+if (!fs.existsSync(uploadDirectoryProfile)) {
+	fs.mkdirSync(uploadDirectoryProfile);
 }
 
-const storage = multer.diskStorage({
+const storageProfile = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, uploadDirectory);
+		cb(null, uploadDirectoryProfile);
 	},
 	filename: function (req, file, cb) {
 		cb(null, file.originalname);
 	}
 });
 
-const upload = multer({ storage: storage });
+const uploadProfile = multer({ storage: storageProfile });
 
-app.post('/upload', upload.single('image'), (req: Request, res) => {
+app.post('/upload-profile', uploadProfile.single('image'), (req: Request, res) => {
 	// Lógica para lidar com a imagem enviada
-	const imageUrl = `http://localhost:3001/${uploadDirectory}${req.file.filename}`;
+	const imageUrl = `http://localhost:3001/${uploadDirectoryProfile}${req.file.filename}`;
+	console.log(imageUrl);
 	res.json({ imageUrl });
 });
 
-app.use(express.static(uploadDirectory));
-app.use('/', express.static(path.join(__dirname, uploadDirectory)));
+/* ============================================== */
+
+const uploadDirectoryBackground = 'uploads/background/';
+
+const storageBackground = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, uploadDirectoryBackground);
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	}
+});
+
+const uploadBackground = multer({ storage: storageBackground });
+
+app.post('/upload-background', uploadBackground.single('image'), (req: Request, res) => {
+	// Lógica para lidar com a imagem enviada
+	const imageUrl = `http://localhost:3001/${uploadDirectoryBackground}${req.file.filename}`;
+	res.json({ imageUrl });
+});
+
+app.use(express.static(uploadDirectoryProfile));
+app.use('/', express.static(path.join(__dirname, uploadDirectoryProfile)));
+
+app.use(express.static(uploadDirectoryBackground));
+app.use('/', express.static(path.join(__dirname, uploadDirectoryBackground)));
 
 const uploadDirector = path.join(__dirname, '../uploads');
-app.use('/upload/:filename', (req, res) => {
+
+app.use('/uploads/profile/:filename', (req, res) => {
 	const { filename } = req.params;
-	const filePath = path.join(uploadDirector, filename);
+	console.log(filename);
+
+	const filePath = path.join(uploadDirector, 'profile', filename);
+
+	// Verifica se o arquivo existe antes de enviá-lo
+	res.sendFile(filePath);
+	if (fs.existsSync(filePath)) {
+		res.sendFile(filePath);
+	} else {
+		// res.status(404).send('Arquivo não encontrado');
+	}
+});
+
+app.use('/uploads/background/:filename', (req, res) => {
+	const { filename } = req.params;
+	const filePath = path.join(uploadDirector, 'background', filename);
 
 	// Verifica se o arquivo existe antes de enviá-lo
 	if (fs.existsSync(filePath)) {

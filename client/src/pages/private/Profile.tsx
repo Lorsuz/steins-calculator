@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-
 const ImageViewer = ({ imageUrl }) => (
 	<div>
 		<p>Imagem carregada com sucesso!</p>
@@ -17,12 +16,12 @@ const ImageUpload = () => {
 		setFile(e.target.files[0]);
 	};
 
-	const handleUpload = async () => {
+	const handleUpload = async (useAs: string) => {
 		const formData = new FormData();
 		formData.append('image', file);
 
 		try {
-			const response = await axios.post('http://localhost:3001/upload', formData, {
+			const response = await axios.post(`http://localhost:3001/upload-${useAs}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
@@ -42,9 +41,9 @@ const ImageUpload = () => {
 	return (
 		<div>
 			<input type='file' onChange={handleFileChange} />
-			<button onClick={handleUpload}>Enviar</button>
+			<button onClick={() => handleUpload('profile')}>Usar como Perfil</button>
+			<button onClick={() => handleUpload('background')}>Usar como Background</button>
 
-			{/* Renderize o componente ImageViewer com a URL da imagem */}
 			{imageUrl && <ImageViewer imageUrl={imageUrl} />}
 		</div>
 	);
